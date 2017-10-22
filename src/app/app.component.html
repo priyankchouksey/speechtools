@@ -1,3 +1,42 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container text-container" >
+    <textarea class="text-area" [ngModel]="recognizedText" (ngModelChange)="textareaModelChange($event)"></textarea>
+    <button class="fa icon bottom" style="font-size:24px;" [ngClass]="{'button-working': isListining}" (click)="toggleStartStop()">
+      <i class="fa fa-microphone" style="font-size:24px" ></i>
+    </button>
+</div>
+<div class="container">
+  <div style="min-width:500px">
+    <label>Transformation:</label>
+    <select [ngModel]="transSelected" (ngModelChange)="transModelChange($event)">
+        <option *ngFor="let trans of transOptions; let idx = index;" [value]="idx">{{trans.name}}</option>
+    </select>
+    <button class="fa icon" style="font-size:24px; top:5px; right:0px" [ngClass]="" (click)="showSettings = !showSettings;">
+        <i class="fa" style="font-size:24px" >&#xf007;</i>
+    </button>
+  </div>
+  <div style="min-width:500px" *ngIf="showSettings">
+    <label>Voice: </label>
+      <select [(ngModel)]="speechConfig.voiceIndex" ng-options="voice.name for voice in voices">
+          <option *ngFor="let voice of voices; let idx = index;" [value]="idx">{{voice.name}} ({{voice.lang}})</option>
+      </select>
+      <button class="fa icon" style="font-size: 24px;  top:100px; left: 325px;" (click)="testVoice()">
+        <i class="fa" style="font-size:24px; color: blue">&#xf01d;</i>
+      </button>
+    <div class="controls" >
+      <label>Pitch: {{ pitch }}</label>
+      <input type="range" [(ngModel)]="speechConfig.pitch" min="0" max="2" step="1" />
+  
+      <label>Rate: {{ rate }}</label>
+      <input type="range" [(ngModel)]="speechConfig.rate" min="0.1" max="1" step="0.05" />
+    
+      <label>Volume: {{ volume }}</label>
+      <input type="range" [(ngModel)]="speechConfig.volume" min="0" max="1" step="1" />
+    </div>
+  </div>
+</div>
+<div class="container text-container" >
+    <label class="text-area">{{speechText}}</label>
+    <button class="fa icon bottom" style="font-size:24px;" (click)="doSpeak()">
+      <i class="fa" style="font-size:24px" >&#xf04b;</i>
+    </button>
+</div>

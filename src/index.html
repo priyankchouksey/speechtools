@@ -3,12 +3,34 @@
 <head>
   <meta charset="utf-8">
   <title>Readitreverse</title>
-  <base href="/">
+  <base href=".">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="msapplication-starturl" content=".">
+  <meta name="theme-color" content="#f48c5b">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/index.css">
+  <link rel="manifest" href="/manifest.json">
 </head>
 <body>
   <app-root>Loading...</app-root>
+  
+
+  <script type="text/javascript">
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      }
+  </script>
+            
 </body>
 </html>
